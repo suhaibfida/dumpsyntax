@@ -10,7 +10,8 @@
     "dev": "pnpm run build && pnpm run start"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "dotenv": "^17.2.3"
   },
   "keywords": [],
   "author": "",
