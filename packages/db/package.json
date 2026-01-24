@@ -4,6 +4,9 @@
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
+  "exports": {
+    "./prisma": "./lib/prisma.ts"
+  },
   "scripts": {
     "generate": "prisma generate",
     "migrate": "prisma migrate dev",
