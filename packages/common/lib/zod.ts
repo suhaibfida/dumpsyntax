@@ -1,7 +1,19 @@
 import { z } from "zod";
 export const signupType = z.object({
-  username: z.string().trim().toLowerCase().min(3).max(20),
+  username: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .min(3)
+    .max(20)
+    .refine((value) => {
+      !value.includes("@");
+    }),
   email: z.email().min(5).max(200),
   password: z.string().trim().min(8),
   profile: z.url().optional(),
+});
+export const loginType = z.object({
+  usernameOrEmail: z.string().min(5).max(100),
+  password: z.string().min(8).max(255),
 });
