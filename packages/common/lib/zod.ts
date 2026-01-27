@@ -6,8 +6,8 @@ export const signupType = z.object({
     .toLowerCase()
     .min(3)
     .max(20)
-    .refine((value) => {
-      !value.includes("@");
+    .refine((value) => !value.includes("@"), {
+      message: "Username can not contain '@'",
     }),
   email: z.email().min(5).max(200),
   password: z.string().trim().min(8),

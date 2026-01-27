@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-const signup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const safeParse = signupType.safeParse(req.body);
   if (!safeParse.success) {
     return res.status(400).json({
@@ -66,7 +66,6 @@ const signup = async (req: Request, res: Response) => {
     });
   }
 };
-export default signup;
 
 // -----------------------------------Login-------------------------------------------------------
 
