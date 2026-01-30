@@ -12,12 +12,39 @@ datasource db {
   provider = "postgresql"
 }
 model User{
-  id         String    @id @default(uuid())
-  username       String    @unique
-  email      String    @unique
-  password   String
-  profile    String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
 
+  id               String    @id @default(uuid())
+  username         String    @unique
+  email            String    @unique
+  password         String
+  profile          String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  documentsOwned   Document[]
+  memberships      DocumentMember[]
+
+}
+model Document{
+
+id                String   @id @default(uuid())
+title             String
+content           String   @default("")
+ownerId           String
+owner             User     @relation(fields:[ownerId],references:[id])
+createdAt         DateTime @default(now())
+updatedAt         DateTime @updatedAt()
+members           DocumentMember[]
+
+}
+model DocumentMember{
+
+id                String   @id @default(uuid())
+memberId          String
+member            User     @relation(fields:[memberId],references:[id])
+authority         String   @default("editor")
+documentId        String
+document          Document @relation(fields:[documentId],references:[id])
+createdAt         DateTime @default (now())
+
+@@unique([documentId,memberId])
 }
