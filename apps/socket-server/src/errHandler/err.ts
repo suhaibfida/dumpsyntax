@@ -10,3 +10,4 @@ const errHandler =
       socket.emit("error", "Internal server error");
     }
   };
+export default errHandler;

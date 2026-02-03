@@ -3,6 +3,7 @@ import http from "http";
 import express from "express";
 import "dotenv/config";
 import authSocketMiddleware from "./middleware/authSocketMiddleware";
+import errHandler from "./errHandler/err";
 const port = process.env.PORT || 8080;
 const app = express();
 const httpServer = http.createServer(app);
@@ -21,8 +22,21 @@ io.on("connection", (socket) => {
     return socket.disconnect();
   }
   socket.emit("socket-connected");
-  socket.on("get-document", async (documentId) => {
-    try {
+  socket.on(
+    "get-document",
+    errHandler(socket, async (documentId) => {
+      const existingUser = await prisma.documentMember.findUnique({
+        where: {
+          documentId_memberId: {
+            memberId: userId,
+            documentId: documentId,
+          },
+        },
+      });
+      if (!existingUser) {
+        socket.emit("error", "You are not a member of this document.");
+        return;
+      }
       const doc = await prisma.document.findUnique({
         where: {
           id: documentId,
@@ -40,18 +54,8 @@ io.on("connection", (socket) => {
         },
       });
       if (!doc) {
-        return socket.emit("error", "Document not available");
-      }
-      const existingUser = await prisma.documentMember.findUnique({
-        where: {
-          documentId_memberId: {
-            memberId: userId,
-            documentId: documentId,
-          },
-        },
-      });
-      if (!existingUser) {
-        return socket.emit("error", "You are not a member of this document.");
+        socket.emit("error", "Document not available");
+        return;
       }
       socket.join(documentId);
       socket.emit("document-joined", documentId);
@@ -60,24 +64,24 @@ io.on("connection", (socket) => {
         content: doc.content,
         messages: doc.messages,
       });
-    } catch (error) {
-      console.error(error);
-    }
-  });
-  socket.on("send-changes", ({ documentId, delta }) => {
-    try {
+    }),
+  );
+  socket.on(
+    "send-changes",
+    errHandler(socket, async ({ documentId, delta }) => {
       if (!socket.rooms.has(documentId)) {
-        return socket.emit("error", "Join document first");
+        socket.emit("error", "Join document first");
+        return;
       }
       socket.to(documentId).emit("receive-changes", { delta, userId });
-    } catch (error) {
-      console.error(error);
-    }
-  });
-  socket.on("save-document", async ({ documentId, content }) => {
-    try {
+    }),
+  );
+  socket.on(
+    "save-document",
+    errHandler(socket, async ({ documentId, content }) => {
       if (!socket.rooms.has(documentId)) {
-        return socket.emit("error", "Please join document first");
+        socket.emit("error", "Please join document first");
+        return;
       }
       await prisma.document.update({
         where: {
@@ -87,14 +91,14 @@ io.on("connection", (socket) => {
           content: content,
         },
       });
-    } catch (error) {
-      console.error(error);
-    }
-  });
-  socket.on("chat", async ({ documentId, message }) => {
-    try {
+    }),
+  );
+  socket.on(
+    "chat",
+    errHandler(socket, async ({ documentId, message }) => {
       if (!socket.rooms.has(documentId)) {
-        return socket.emit("error", "Please join document first");
+        socket.emit("error", "Please join document first");
+        return;
       }
       const saved = await prisma.message.create({
         data: {
@@ -109,18 +113,19 @@ io.on("connection", (socket) => {
         },
       });
       if (!saved) {
-        return socket.emit("error", "Error while sending message");
+        socket.emit("error", "Error while sending message");
+        return;
       }
       socket.to(documentId).emit("receive-message", saved);
       socket.emit("message-sent", saved);
-    } catch (error) {
-      console.error(error);
-      return socket.emit("error", "Internal server error");
-    }
-  });
-  socket.on("leave-document", (documentId) => {
-    socket.leave(documentId);
-  });
+    }),
+  );
+  socket.on(
+    "leave-document",
+    errHandler(socket, async (documentId) => {
+      socket.leave(documentId);
+    }),
+  );
 });
 httpServer.listen(port, () => {
   console.log("socket.io running on port 8080");
