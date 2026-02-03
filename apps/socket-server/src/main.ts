@@ -22,46 +22,101 @@ io.on("connection", (socket) => {
   }
   socket.emit("socket-connected");
   socket.on("get-document", async (documentId) => {
-    const doc = await prisma.document.findUnique({
-      where: {
-        id: documentId,
-      },
-    });
-    if (!doc) {
-      return socket.emit("error", "Document not available");
-    }
-    const existingUser = await prisma.documentMember.findUnique({
-      where: {
-        documentId_memberId: {
-          memberId: userId,
-          documentId: documentId,
+    try {
+      const doc = await prisma.document.findUnique({
+        where: {
+          id: documentId,
         },
-      },
-    });
-    if (!existingUser) {
-      return socket.emit("You are not a member of this document.");
+        include: {
+          messages: {
+            take: 50,
+            orderBy: { createdAt: "asc" },
+            include: {
+              sender: {
+                select: { username: true },
+              },
+            },
+          },
+        },
+      });
+      if (!doc) {
+        return socket.emit("error", "Document not available");
+      }
+      const existingUser = await prisma.documentMember.findUnique({
+        where: {
+          documentId_memberId: {
+            memberId: userId,
+            documentId: documentId,
+          },
+        },
+      });
+      if (!existingUser) {
+        return socket.emit("error", "You are not a member of this document.");
+      }
+      socket.join(documentId);
+      socket.emit("document-joined", documentId);
+
+      socket.emit("document-loaded", {
+        content: doc.content,
+        messages: doc.messages,
+      });
+    } catch (error) {
+      console.error(error);
     }
-    socket.join(documentId);
-    socket.emit("Document joined successfully", documentId);
   });
   socket.on("send-changes", ({ documentId, delta }) => {
-    if (!socket.rooms.has(documentId)) {
-      return socket.emit("error", "Join document first");
+    try {
+      if (!socket.rooms.has(documentId)) {
+        return socket.emit("error", "Join document first");
+      }
+      socket.to(documentId).emit("receive-changes", { delta, userId });
+    } catch (error) {
+      console.error(error);
     }
-    socket.to(documentId).emit("receive-changes", { delta, userId });
   });
-  socket.on("save-document", async (documentId, content) => {
-    if (!socket.rooms.has(documentId)) {
-      return socket.emit("error", "Please join document first");
+  socket.on("save-document", async ({ documentId, content }) => {
+    try {
+      if (!socket.rooms.has(documentId)) {
+        return socket.emit("error", "Please join document first");
+      }
+      await prisma.document.update({
+        where: {
+          id: documentId,
+        },
+        data: {
+          content: content,
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
-    await prisma.document.update({
-      where: {
-        id: documentId,
-      },
-      data: {
-        content: content,
-      },
-    });
+  });
+  socket.on("chat", async ({ documentId, message }) => {
+    try {
+      if (!socket.rooms.has(documentId)) {
+        return socket.emit("error", "Please join document first");
+      }
+      const saved = await prisma.message.create({
+        data: {
+          senderId: userId,
+          documentId: documentId,
+          messageData: message,
+        },
+        include: {
+          sender: {
+            select: { username: true },
+          },
+        },
+      });
+      if (!saved) {
+        return socket.emit("error", "Error while sending message");
+      }
+      socket.to(documentId).emit("receive-message", saved);
+      socket.emit("message-sent", saved);
+    } catch (error) {
+      console.error(error);
+      return socket.emit("error", "Internal server error");
+    }
   });
   socket.on("leave-document", (documentId) => {
     socket.leave(documentId);

@@ -52,11 +52,11 @@ createdAt         DateTime @default (now())
 }
 model Message{
   id              String @id @default(uuid())
-  senderId       String
- sender         User @relation(fields:[senderId],references:[id])
-  docId           String
-  doc             Document @relation(fields:[docId],references:[id])
+  senderId        String
+  sender          User @relation(fields:[senderId],references:[id])
+  documentId      String
+  doc             Document @relation(fields:[documentId],references:[id])
   messageData     String
-   createdAt      DateTime @default(now())
+  createdAt       DateTime @default(now())
 
 }
