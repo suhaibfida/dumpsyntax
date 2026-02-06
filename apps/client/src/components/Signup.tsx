@@ -53,7 +53,7 @@ export const Signup = () => {
             <p className="text-red-400 text-sm">{errors.password.message}</p>
           )}
 
-          <Button type={"Submit"} />
+          <Button type={"submit"} />
         </div>
       </form>
     </div>
