@@ -27,16 +27,39 @@ export const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-600">
+    <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="flex fixed top-0 left-3 w-15 rounded-xl ">
+        <img className=" rouned-xl" src="./../../dump.svg" />
+        <span className="pt-7 text-gray-300 text-2xl font-bold">
+          <span className="text-purple-700 font-bold text-3xl pr-1">Dump</span>
+          {"</>"}
+        </span>
+        <div className="flex fixed bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
+          <div className="pr-5">
+            <Button className="w-30" type={"submit"}>
+              SignUp
+            </Button>
+          </div>
+          <div className="pr-5">
+            <Button className="w-30" type={"submit"}>
+              Login
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="fixed top-20 w-screen h-px bg-gray-700" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-96 text-white backdrop-blur-xl bg-black/30 border border-gray-800 rounded-xl p-6"
+        className="w-96 text-white backdrop-blur-xl bg-white/5 border border-gray-800 rounded-xl p-6"
       >
-        <h2 className="pb-6 text-gray-200 font-bold text-2xl text-center">
+        <h2 className="pb-3 text-gray-300 font-bold text-3xl text-center">
           Signup
         </h2>
+        <h2 className="pb-3 font-bold text-purple-500 font-bold text-2xl text-center">
+          {"</>"}
+        </h2>
 
-        <div className="space-y-4 text-center">
+        <div className="space-y-5 text-center">
           {/* Username */}
           <Input type="text" placeholder="Username" {...register("username")} />
           {errors.username && (
@@ -59,7 +82,7 @@ export const Signup = () => {
             <p className="text-red-400 text-sm">{errors.password.message}</p>
           )}
 
-          <Button type={"submit"} />
+          <Button type={"submit"}>SignUp</Button>
         </div>
       </form>
     </div>

@@ -4,7 +4,7 @@ interface Signup {
   password: string;
 }
 export const signup = async (data: Signup) => {
-  const res = await fetch("/signup", {
+  const res = await fetch("http://localhost:3000/signup", {
     method: "POST",
     headers: { "content-Type": "application/json" },
     body: JSON.stringify(data),
