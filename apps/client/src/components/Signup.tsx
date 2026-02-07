@@ -4,6 +4,7 @@ import { signupType } from "@repo/common/zod";
 import { z } from "zod";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
+import { signup } from "./auth";
 
 type SignUpFormData = z.infer<typeof signupType>;
 
@@ -16,8 +17,13 @@ export const Signup = () => {
     resolver: zodResolver(signupType),
   });
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log("Signup Data:", data);
+  const onSubmit = async (data: SignUpFormData) => {
+    try {
+      const result = await signup(data);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
