@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@repo/ui/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginType } from "@repo/common/zod";
+import { login } from "./auth";
 import { z } from "zod";
 type loginSchema = z.infer<typeof loginType>;
 export const Login = () => {
@@ -11,7 +12,13 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<loginSchema>({ resolver: zodResolver(loginType) });
-  const onSubmit = async (data: loginSchema) => {};
+  const onSubmit = async (data: loginSchema) => {
+    try {
+      const result = await login(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="flex items-center justify-center h-screen bg-black ">
@@ -44,10 +51,33 @@ export const Login = () => {
           <div className="font-mono text-3xl text-purple-500">Login</div>
           <div className="font-bold text-3xl">{"</>"}</div>
           <div className="pt-5">
-            <Input {...register} type="text" placeholder="Username or Email" />
+            <Input
+              {...register("usernameOrEmail")}
+              type="text"
+              placeholder="Username or Email"
+            />
+            <div>
+              {errors.usernameOrEmail && (
+                <span className="text-red-500 text-sm">
+                  {errors.usernameOrEmail.message}
+                </span>
+              )}
+            </div>
           </div>
+
           <div>
-            <Input {...register} type="text" placeholder="Password" />
+            <Input
+              {...register("password")}
+              type="text"
+              placeholder="Password"
+            />
+            <div>
+              {errors.password && (
+                <span className="text-sm text-red-500">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
           </div>
           <div className="p-10">
             <Button>Login</Button>
