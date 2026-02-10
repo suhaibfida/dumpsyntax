@@ -14,7 +14,7 @@ export const Login = () => {
   } = useForm<loginSchema>({ resolver: zodResolver(loginType) });
   const onSubmit = async (data: loginSchema) => {
     try {
-      const result = await login(data);
+      await login(data);
     } catch (err) {
       console.log(err);
     }
