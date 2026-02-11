@@ -17,7 +17,7 @@ const createDocument = async (req: Request, res: Response) => {
     });
   }
   try {
-    const document = await prisma.$transaction(async (tx) => {
+    const document = await prisma.$transaction(async (tx: any) => {
       const doc = await tx.document.create({
         data: {
           title: safeParse.data.title,

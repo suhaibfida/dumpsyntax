@@ -4,14 +4,14 @@ import express from "express";
 import "dotenv/config";
 import authSocketMiddleware from "./middleware/authSocketMiddleware";
 import errHandler from "./errHandler/err";
+import prisma from "@repo/db/prisma";
 const port = process.env.PORT || 8080;
 const app = express();
 const httpServer = http.createServer(app);
-import prisma from "@repo/db/prisma";
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:5173",
   },
 });
 io.use(authSocketMiddleware);

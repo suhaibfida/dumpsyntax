@@ -1,6 +1,19 @@
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
+import { useRef } from "react";
+import { ApiJoin } from "./api.ts";
 export const Join = () => {
+  const inpRef = useRef<HTMLInputElement>(null);
+  const onClick = async () => {
+    if (!inpRef.current) {
+      return;
+    }
+    const value = inpRef.current.value;
+    if (!value) {
+      throw new Error("Failed Operation");
+    }
+    await ApiJoin({ data: value });
+  };
   return (
     <>
       <div className="flex justify-center items-center h-screen bg-black">
@@ -13,10 +26,12 @@ export const Join = () => {
             Enter the document code :
           </div>
           <div className="pl-7 pt-2 text-white">
-            <Input type="text" placeholder="Code" />
+            <Input ref={inpRef} type="text" placeholder="Code" />
           </div>
           <div className="pl-7 pt-10 text-white">
-            <Button type="submit">Join</Button>
+            <Button type="submit" onClick={onClick}>
+              Join
+            </Button>
           </div>
         </div>
       </div>
