@@ -24,10 +24,10 @@ export const signup = async (req: Request, res: Response) => {
 
     if (existingUser.length > 0) {
       const checkUser = existingUser.some(
-        (u) => u.username === safeParse.data.username,
+        (u: any) => u.username === safeParse.data.username,
       );
       const checkEmail = existingUser.some(
-        (u) => u.email === safeParse.data.email,
+        (u: any) => u.email === safeParse.data.email,
       );
       if (checkUser || checkEmail) {
         return res.status(409).json({

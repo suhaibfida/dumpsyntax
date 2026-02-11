@@ -2,7 +2,9 @@ import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
 import { useRef } from "react";
 import { ApiJoin } from "./api.ts";
+import { useNavigate } from "react-router-dom";
 export const Join = () => {
+  const navigate = useNavigate();
   const inpRef = useRef<HTMLInputElement>(null);
   const onClick = async () => {
     if (!inpRef.current) {
@@ -12,7 +14,12 @@ export const Join = () => {
     if (!value) {
       throw new Error("Failed Operation");
     }
-    await ApiJoin({ data: value });
+    try {
+      await ApiJoin({ data: value });
+      navigate("/document/live");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>

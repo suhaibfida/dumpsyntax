@@ -7,13 +7,14 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ type, placeholder, name, onChange, onBlur }, ref) => {
+  ({ type, placeholder, name, onChange, onBlur, className = "" }, ref) => {
     return (
       <input
-        className="p-3 text-center w-3xs rounded-xl border border-gray-600 "
+        className={`p-3 w-3xs rounded-xl border border-gray-600 ${className}`}
         type={type}
         placeholder={placeholder}
         name={name}

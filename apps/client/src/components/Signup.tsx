@@ -5,10 +5,12 @@ import { z } from "zod";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
 import { signup } from "./auth";
+import { useNavigate } from "react-router-dom";
 
 type SignUpFormData = z.infer<typeof signupType>;
 
 export const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,6 +23,7 @@ export const Signup = () => {
     try {
       const result = await signup(data);
       console.log(result);
+      navigate("/login");
     } catch (err) {
       console.error(err);
     }

@@ -5,8 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginType } from "@repo/common/zod";
 import { login } from "./auth";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 type loginSchema = z.infer<typeof loginType>;
 export const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,6 +17,7 @@ export const Login = () => {
   const onSubmit = async (data: loginSchema) => {
     try {
       await login(data);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Dashboard } from "./components/Dashboard";
 import { Join } from "./components/Join";
 import { CreateDoc } from "./components/CreateDoc";
+import { LivePage } from "./components/LivePage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/join" element={<Join />} />
           <Route path="/createdocument" element={<CreateDoc />} />
+          <Route path="/document/live" element={<LivePage />} />
         </Routes>
       </BrowserRouter>
     </>
