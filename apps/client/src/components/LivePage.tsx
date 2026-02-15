@@ -1,6 +1,8 @@
 import io, { Socket } from "socket.io-client";
 import { useEffect, useRef } from "react";
 import Quill from "quill";
+import { Input } from "@repo/ui/Input";
+import { Button } from "@repo/ui/Button";
 import "quill/dist/quill.snow.css";
 interface Ref {
   docRef: React.RefObject<HTMLInputElement | null>;
@@ -70,12 +72,28 @@ export const LivePage = ({ docRef }: Ref) => {
   }, []);
   return (
     <>
-      <div className="h-screen bg-gray-800 p-10">
-        <div className="w-4xl h-9/10 bg-gray-400 ml-10 mt-7">
+      <div className="flex h-screen bg-gray-800 p-10">
+        <div className="w-4xl h-9/10 rounded-xl bg-gray-400 ml-10 mt-7">
           <div
             className="h-9/10 bg-gray-900 text-white text-xl rounded-3xl font-mono"
             ref={quillEdit}
           />
+        </div>
+        <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-gray-600 rounded-xl m-20 flex flex-col">
+          <div className="flex-1"></div>
+          <div className="flex">
+            <Input
+              className="mt-8 m-5 mr-4 pr-5 text-white"
+              type="text"
+              placeholder="Send message....."
+            />
+            <Button
+              type="button"
+              className="mt-8 mb-5 mr-2 p-1 pl-4 pr-4 rounded-4xl"
+            >
+              {">"}
+            </Button>
+          </div>
         </div>
       </div>
     </>
