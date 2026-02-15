@@ -1,3 +1,11 @@
 @import "tailwindcss";
 @source "../../**/*.{ts,tsx}";
 @source "../../../packages/**/*.{ts,tsx}";
+@layer components {
+  .ql-editor {
+    @apply font-mono text-xl;
+  }
+  .ql-toolbar {
+    @apply rounded-xl;
+  }
+}
