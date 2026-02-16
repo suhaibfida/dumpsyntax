@@ -21,6 +21,7 @@ export const LivePage = ({ docRef }: Ref) => {
     }
     const quill = new Quill(quillEdit.current, {
       theme: "snow",
+      placeholder: "",
     });
     quillRef.current = quill;
     socketRef.current = io("ws://localhost:8080");

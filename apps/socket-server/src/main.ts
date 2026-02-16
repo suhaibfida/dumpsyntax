@@ -21,7 +21,6 @@ io.on("connection", (socket) => {
     console.log("Unauthorized socket");
     return socket.disconnect();
   }
-  socket.emit("socket-connected");
   socket.on(
     "get-document",
     errHandler(socket, async (documentId) => {
@@ -34,7 +33,7 @@ io.on("connection", (socket) => {
         },
       });
       if (!existingUser) {
-        socket.emit("error", "You are not a member of this document.");
+        socket.emit("user-error", "You are not a member of this document.");
         return;
       }
       const doc = await prisma.document.findUnique({
@@ -43,7 +42,7 @@ io.on("connection", (socket) => {
         },
         include: {
           messages: {
-            take: 50,
+            take: 10000,
             orderBy: { createdAt: "asc" },
             include: {
               sender: {
@@ -54,7 +53,7 @@ io.on("connection", (socket) => {
         },
       });
       if (!doc) {
-        socket.emit("error", "Document not available");
+        socket.emit("doc-error", "Document not available");
         return;
       }
       socket.join(documentId);
@@ -97,7 +96,7 @@ io.on("connection", (socket) => {
     "chat",
     errHandler(socket, async ({ documentId, message }) => {
       if (!socket.rooms.has(documentId)) {
-        socket.emit("error", "Please join document first");
+        socket.emit("chat-error", "Please join document first");
         return;
       }
       const saved = await prisma.message.create({
@@ -113,7 +112,7 @@ io.on("connection", (socket) => {
         },
       });
       if (!saved) {
-        socket.emit("error", "Error while sending message");
+        socket.emit("save-error", "Error while sending message");
         return;
       }
       socket.to(documentId).emit("receive-message", saved);
