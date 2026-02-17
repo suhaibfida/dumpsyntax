@@ -1,9 +1,11 @@
 import io, { Socket } from "socket.io-client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Quill from "quill";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
+import { apiMessage } from "./api";
 import "quill/dist/quill.snow.css";
+
 interface Ref {
   docRef: React.RefObject<HTMLInputElement | null>;
 }
@@ -11,7 +13,27 @@ export const LivePage = ({ docRef }: Ref) => {
   const socketRef = useRef<Socket | null>(null);
   const quillEdit = useRef<HTMLDivElement>(null);
   const quillRef = useRef<Quill | null>(null);
+  const [message, setMessage] = useState("");
 
+  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+    try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const onClick = async () => {
+    try {
+      if (!socketRef.current) {
+        return;
+      }
+      await apiMessage(message);
+      socketRef.current.emit("chat", { docRef, message });
+      setMessage("");
+    } catch (err) {
+      console.log("Error");
+    }
+  };
   useEffect(() => {
     if (!quillEdit.current) {
       return;
@@ -19,11 +41,12 @@ export const LivePage = ({ docRef }: Ref) => {
     if (quillRef.current) {
       return;
     }
+
     const quill = new Quill(quillEdit.current, {
       theme: "snow",
-      placeholder: "",
     });
     quillRef.current = quill;
+    const fullDoc = quillRef.current.getContents();
     socketRef.current = io("ws://localhost:8080");
     socketRef.current.on("connection", () => {
       console.log("Connection established successfully");
@@ -47,12 +70,17 @@ export const LivePage = ({ docRef }: Ref) => {
     socketRef.current.on("document-loaded", (content, messages) => {
       console.log(content, messages);
     });
-    // socketRef.current.emit("send-changes", { docRef, delta });
-    // socketRef.current.emit("save-document", { docRef, content });
-    // socketRef.current.emit("chat", { docRef, message });
-    // socketRef.current.on("chat-error", (message) => {
-    //   console.log(message);
-    // });
+    quillRef.current.on("text-change", (delta, source, oldDelta) => {
+      if (!socketRef.current) {
+        return;
+      }
+      socketRef.current.emit("send-changes", { docRef, delta });
+    });
+    socketRef.current.emit("save-document", { docRef, fullDoc });
+
+    socketRef.current.on("chat-error", (message) => {
+      console.log(message);
+    });
     socketRef.current.on("save-error", (message) => {
       console.log(message);
     });
@@ -62,9 +90,13 @@ export const LivePage = ({ docRef }: Ref) => {
     socketRef.current.on("message-sent", (message) => {
       console.log(message);
     });
-    // socketRef.current.on("leave-document", (documentId) => {
-    //   console.log("exiting...");
-    // });
+    socketRef.current.on("leave-document", (docRef) => {
+      if (!socketRef.current) {
+        return;
+      }
+      console.log("exiting...");
+      socketRef.current.disconnect();
+    });
     return () => {
       if (socketRef.current) {
         socketRef.current.disconnect();
@@ -87,10 +119,13 @@ export const LivePage = ({ docRef }: Ref) => {
               className="mt-8 m-5 mr-4 pr-5 text-white"
               type="text"
               placeholder="Send message....."
+              value={message}
+              onChange={onChange}
             />
             <Button
               type="button"
               className="mt-8 mb-5 mr-2 p-1 pl-4 pr-4 rounded-4xl"
+              onChange={onClick}
             >
               {">"}
             </Button>

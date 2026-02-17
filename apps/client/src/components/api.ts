@@ -1,7 +1,7 @@
 interface Create {
   data: string;
 }
-export const ApiCreate = async (data: Create) => {
+export const apiCreate = async (data: Create) => {
   const res = await fetch(
     "http://localhost:3000/api/v1/dashboard/createdocument",
     {
@@ -15,7 +15,7 @@ export const ApiCreate = async (data: Create) => {
   }
   return;
 };
-export const ApiJoin = async (data: Create) => {
+export const apiJoin = async (data: Create) => {
   const res = await fetch("http://localhost:3000/api/v1/joindocument", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,4 +25,11 @@ export const ApiJoin = async (data: Create) => {
     throw new Error("Operation failed");
   }
   return;
+};
+export const apiMessage = async (data: any) => {
+  await fetch("http://localhost:3000", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(data),
+  });
 };

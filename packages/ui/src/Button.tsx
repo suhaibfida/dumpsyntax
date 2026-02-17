@@ -3,6 +3,7 @@ interface ButtonProps {
   children: string;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
 export const Button = ({
