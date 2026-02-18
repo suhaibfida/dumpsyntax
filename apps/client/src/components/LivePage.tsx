@@ -1,9 +1,9 @@
 import io, { Socket } from "socket.io-client";
 import { useEffect, useRef, useState } from "react";
-import Quill from "quill";
+import Quill, { Delta } from "quill";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { apiMessage } from "./api";
+import { apiMessage, apiSave } from "./api";
 import "quill/dist/quill.snow.css";
 
 interface Ref {
@@ -14,10 +14,12 @@ export const LivePage = ({ docRef }: Ref) => {
   const quillEdit = useRef<HTMLDivElement>(null);
   const quillRef = useRef<Quill | null>(null);
   const [message, setMessage] = useState("");
+  const documentRef = useRef<Delta>(null);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
     try {
+      await apiMessage(message);
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +33,30 @@ export const LivePage = ({ docRef }: Ref) => {
       socketRef.current.emit("chat", { docRef, message });
       setMessage("");
     } catch (err) {
-      console.log("Error");
+      console.log(err);
+    }
+  };
+  const saveDoc = async () => {
+    try {
+      await apiSave(documentRef.current);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const leaveDoc = async () => {
+    try {
+      if (!socketRef.current) {
+        return;
+      }
+      socketRef.current.on("leave-document", () => {
+        if (!socketRef.current) {
+          return;
+        }
+        console.log("exiting...");
+        socketRef.current.disconnect();
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
   useEffect(() => {
@@ -46,7 +71,7 @@ export const LivePage = ({ docRef }: Ref) => {
       theme: "snow",
     });
     quillRef.current = quill;
-    const fullDoc = quillRef.current.getContents();
+    documentRef.current = quillRef.current.getContents();
     socketRef.current = io("ws://localhost:8080");
     socketRef.current.on("connection", () => {
       console.log("Connection established successfully");
@@ -70,13 +95,12 @@ export const LivePage = ({ docRef }: Ref) => {
     socketRef.current.on("document-loaded", (content, messages) => {
       console.log(content, messages);
     });
-    quillRef.current.on("text-change", (delta, source, oldDelta) => {
+    quillRef.current.on("text-change", (delta) => {
       if (!socketRef.current) {
         return;
       }
       socketRef.current.emit("send-changes", { docRef, delta });
     });
-    socketRef.current.emit("save-document", { docRef, fullDoc });
 
     socketRef.current.on("chat-error", (message) => {
       console.log(message);
@@ -90,13 +114,7 @@ export const LivePage = ({ docRef }: Ref) => {
     socketRef.current.on("message-sent", (message) => {
       console.log(message);
     });
-    socketRef.current.on("leave-document", (docRef) => {
-      if (!socketRef.current) {
-        return;
-      }
-      console.log("exiting...");
-      socketRef.current.disconnect();
-    });
+
     return () => {
       if (socketRef.current) {
         socketRef.current.disconnect();
@@ -112,6 +130,18 @@ export const LivePage = ({ docRef }: Ref) => {
             ref={quillEdit}
           />
         </div>
+        <div>
+          <div>
+            <Button type="button" className="" onClick={saveDoc}>
+              Save
+            </Button>
+          </div>
+          <div>
+            <Button type="button" className="" onClick={leaveDoc}>
+              Leave
+            </Button>
+          </div>
+        </div>
         <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-gray-600 rounded-xl m-20 flex flex-col">
           <div className="flex-1"></div>
           <div className="flex">
@@ -125,7 +155,7 @@ export const LivePage = ({ docRef }: Ref) => {
             <Button
               type="button"
               className="mt-8 mb-5 mr-2 p-1 pl-4 pr-4 rounded-4xl"
-              onChange={onClick}
+              onClick={onClick}
             >
               {">"}
             </Button>
