@@ -1,6 +1,6 @@
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { ApiJoin } from "./api.ts";
+import { apiJoin } from "./api.ts";
 import { useNavigate } from "react-router-dom";
 interface Ref {
   inpRef: React.RefObject<HTMLInputElement | null>;
@@ -17,7 +17,7 @@ export const Join = ({ inpRef }: Ref) => {
       throw new Error("Failed Operation");
     }
     try {
-      await ApiJoin({ data: value });
+      await apiJoin({ data: value });
       navigate("/document/live");
     } catch (err) {
       console.log(err);
