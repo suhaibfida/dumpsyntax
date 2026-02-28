@@ -1,7 +1,7 @@
 import { Navbar } from "./Navbar";
 import { Button } from "@repo/ui/Button";
 import { Down } from "@repo/ui/Down";
-export const Page = () => {
+export const HomePage = () => {
   return (
     <>
       <div className="flex bg-gradient-to-b from-black to-purple-600 items-center justify-center flex-col h-screen text-white">
