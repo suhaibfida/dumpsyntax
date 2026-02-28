@@ -5,7 +5,8 @@ export const Navbar = () => {
       <img className=" rouned-xl" src="./../../dump.svg" />
       <span className="pt-7 text-gray-300 text-2xl font-bold">
         <span className=" font-bold text-3xl pr-1">
-          <span className="text-4xl text-purple-700">D</span>ump
+          <span className="text-4xl text-purple-700">D</span>
+          <span className="font-mono">ump</span>
         </span>
         <span className="text-purple-700">{"</>"}</span>
       </span>
