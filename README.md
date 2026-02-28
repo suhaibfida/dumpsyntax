@@ -1,6 +1,6 @@
+<img width="1908" height="908" alt="image" src="https://github.com/user-attachments/assets/b41c07a5-d200-47ad-a4c5-d753b750b779" />
+<img width="1907" height="904" alt="image" src="https://github.com/user-attachments/assets/864e4f7d-dd62-4789-b660-dccd6b3a1eb7" />
+<img width="1907" height="904" alt="image" src="https://github.com/user-attachments/assets/c696ac2e-75b2-47a6-bf92-34dd4bfbc4a3" />
 Project architecture:
-<img width="1906" height="918" alt="image" src="https://github.com/user-attachments/assets/01a9ed63-6e0a-4dc2-8a7f-baa2690e1448" />
-<img width="1885" height="903" alt="image" src="https://github.com/user-attachments/assets/d7d5ea48-d2e2-460e-817b-44319db9a32d" />
-<img width="1794" height="867" alt="image" src="https://github.com/user-attachments/assets/8779694a-3174-41be-8e64-2f2762e11e84" />
 <img width="4140" height="2135" alt="architecture" src="https://github.com/user-attachments/assets/7a385d58-8fe7-4441-a59f-834ef803a945" />
 
