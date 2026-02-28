@@ -38,10 +38,10 @@ export const Signup = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-96 text-white backdrop-blur-xl bg-white/5 border border-gray-800 rounded-xl p-6"
       >
-        <h2 className="pb-3 text-gray-300 font-mono text-3xl text-center">
+        <h2 className="pb-3 text-gray-300 font-bold text-3xl text-center text-purple-500">
           Signup
         </h2>
-        <h2 className="pb-3 font-bold text-purple-500 font-bold text-2xl text-center">
+        <h2 className="pb-3 font-bold  font-bold text-2xl text-center">
           {"</>"}
         </h2>
 

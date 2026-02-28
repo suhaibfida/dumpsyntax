@@ -32,9 +32,9 @@ export const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="text-white pl-7 pr-7 space-y-7 text-center backdrop-blur-xl bg-white/7 rounded-xl border border-gray-800"
         >
-          <div className="font-bold pt-3 text-3xl text-purple-500">Login</div>
+          <div className="font-bold pt-2 text-3xl text-purple-500">Login</div>
           <div className="font-bold text-3xl">{"</>"}</div>
-          <div className="pt-5">
+          <div className="">
             <Input
               {...register("usernameOrEmail")}
               type="text"
