@@ -64,7 +64,7 @@ export const Login = () => {
             </div>
           </div>
           <div className="p-5">
-            <Button>Login</Button>
+            <Button className="border-purple-900 w-50">Login</Button>
           </div>
         </form>
       </div>

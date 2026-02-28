@@ -68,7 +68,9 @@ export const Signup = () => {
             <p className="text-red-400 text-sm">{errors.password.message}</p>
           )}
 
-          <Button type={"submit"}>SignUp</Button>
+          <Button className="border-purple-900 w-50" type={"submit"}>
+            SignUp
+          </Button>
         </div>
       </form>
     </div>
