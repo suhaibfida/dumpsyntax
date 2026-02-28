@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
-  children: string;
+  children: ReactNode;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLButtonElement>) => void;
@@ -16,7 +17,7 @@ export const Button = ({
   return (
     <>
       <button
-        className={`text-3xl font-bold bg-gray-200 text-white bg-purple-900 hover:bg-purple-800 cursor-pointer border border-gray-900 font-mono ${className}`}
+        className={`text-xl font-mono  text-white  hover:bg-purple-900 ${className} duration-500 ease-in cursor-pointer text-center border border-2  rounded-2xl pl-4 pr-4 pt-2 pb-2 `}
         type={type}
         onClick={onClick}
         disabled={disabled}
