@@ -1,6 +1,6 @@
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { apiJoin } from "./api.ts";
+import { apiJoin } from "./api/api.ts";
 import { useNavigate } from "react-router-dom";
 interface Ref {
   inpRef: React.RefObject<HTMLInputElement | null>;

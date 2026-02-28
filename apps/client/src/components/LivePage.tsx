@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Quill, { Delta } from "quill";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { apiMessage, apiSave } from "./api";
+import { apiMessage, apiSave } from "./api/api";
 import "quill/dist/quill.snow.css";
 
 interface Ref {

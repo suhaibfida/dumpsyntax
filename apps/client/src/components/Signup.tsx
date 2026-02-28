@@ -4,8 +4,9 @@ import { signupType } from "@repo/common/zod";
 import { z } from "zod";
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { signup } from "./auth";
+import { signup } from "./api/auth";
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "./Navbar";
 
 type SignUpFormData = z.infer<typeof signupType>;
 
@@ -31,25 +32,7 @@ export const Signup = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="flex fixed top-0 left-3 w-15">
-        <img className=" rouned-xl" src="./../../dump.svg" />
-        <span className="pt-7 text-gray-300 text-2xl font-bold">
-          <span className="text-purple-700 font-bold text-3xl pr-1">Dump</span>
-          {"</>"}
-        </span>
-        <div className="flex fixed bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
-          <div className="pr-5">
-            <Button className="w-30" type={"submit"}>
-              SignUp
-            </Button>
-          </div>
-          <div className="pr-5">
-            <Button className="w-30" type={"submit"}>
-              Login
-            </Button>
-          </div>
-        </div>
-      </div>
+      <Navbar />
       <div className="fixed top-20 w-screen h-px bg-gray-700" />
       <form
         onSubmit={handleSubmit(onSubmit)}

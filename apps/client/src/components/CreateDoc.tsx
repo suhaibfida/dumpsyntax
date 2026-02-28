@@ -1,7 +1,7 @@
 import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
 import { useRef, useState } from "react";
-import { apiCreate } from "./api";
+import { apiCreate } from "./api/api";
 export const CreateDoc = () => {
   const [loading, setLoading] = useState("Create");
   const [disabled, setDisabled] = useState(false);
