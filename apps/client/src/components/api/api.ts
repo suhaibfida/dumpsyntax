@@ -5,6 +5,7 @@ export const apiCreate = async <T>(data: T) => {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
+      credentials: "include",
     },
   );
   if (!res) {
@@ -17,6 +18,7 @@ export const apiJoin = async <T>(data: T) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
+    credentials: "include",
   });
   if (!res) {
     throw new Error("Operation failed");
@@ -28,6 +30,7 @@ export const apiMessage = async <T>(data: T) => {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
+    credentials: "include",
   });
 };
 export const apiSave = async <T>(data: T) => {
@@ -35,5 +38,14 @@ export const apiSave = async <T>(data: T) => {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
+    credentials: "include",
   });
+};
+export const apiShow = async () => {
+  const res = await fetch("http://localhost:300/dashboard", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await res.json();
+  return data;
 };
