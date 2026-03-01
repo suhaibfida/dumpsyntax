@@ -33,10 +33,10 @@ export const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-black to-purple-900">
       <Navbar />
-      <div className="fixed top-20 w-screen h-px bg-gray-700" />
+      <div className="fixed top-20 w-screen h-px bg-purple-900" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-96 text-white backdrop-blur-xl bg-white/10 border border-2 border-gray-800 rounded-xl p-6"
+        className="w-96 text-white backdrop-blur-xl bg-white/10 border border-2 border-purple-700 rounded-xl p-6"
       >
         <h2 className="pb-3 text-gray-300 font-bold text-3xl text-center text-purple-500">
           Signup
@@ -68,7 +68,7 @@ export const Signup = () => {
             <p className="text-red-400 text-sm">{errors.password.message}</p>
           )}
 
-          <Button className="border-purple-700 w-50" type={"submit"}>
+          <Button className="border-purple-700 w-50 mb-5 mt-5" type={"submit"}>
             SignUp
           </Button>
         </div>

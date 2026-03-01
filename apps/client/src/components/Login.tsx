@@ -27,10 +27,10 @@ export const Login = () => {
     <>
       <div className="flex items-center justify-center h-screen bg-gradient-to-b from-black to-purple-900 ">
         <Navbar />
-        <div className="fixed top-20 w-screen h-px bg-gray-700" />
+        <div className="fixed top-20 w-screen h-px bg-purple-900" />
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="text-white pl-7 pr-7 space-y-7 text-center backdrop-blur-xl bg-white/10 rounded-xl border border-gray-700 border-2"
+          className="text-white w-100 space-y-7 text-center backdrop-blur-xl bg-white/10 rounded-xl border border-purple-700 border-2"
         >
           <div className="font-bold pt-2 text-3xl text-purple-500">Login</div>
           <div className="font-bold text-3xl">{"</>"}</div>
@@ -63,7 +63,7 @@ export const Login = () => {
               )}
             </div>
           </div>
-          <div className="p-5">
+          <div className="p-5 mb-5">
             <Button className="border-purple-700 w-50">Login</Button>
           </div>
         </form>
