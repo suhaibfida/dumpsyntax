@@ -29,7 +29,7 @@ export const CreateDoc = () => {
     <>
       <div className="flex justify-center items-center h-screen bg-black">
         <div className="flex-col pt-5 h-96 w-80 backdrop-blur-xl bg-white/7 rounded-xl border border-gray-500">
-          <div className="font-bold pl-22 text-xl underline text-purple-500">
+          <div className="font-bold pl-16 text-2xl underline text-purple-500">
             Create Document
           </div>
           <div className="text-gray-300 pl-5 pb-1 pt-15 text-md font-mono">
@@ -44,8 +44,13 @@ export const CreateDoc = () => {
               onKeyDown={(e) => e.key === "Enter" && onClick}
             />
           </div>
-          <div className="pl-7 pt-7 text-white">
-            <Button type="submit" onClick={onClick} disabled={disabled}>
+          <div className="ml-27 pt-7 text-white">
+            <Button
+              className="border-purple-500"
+              type="submit"
+              onClick={onClick}
+              disabled={disabled}
+            >
               {loading}
             </Button>
           </div>
