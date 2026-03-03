@@ -10,7 +10,7 @@ export const Navbar = () => {
         </span>
         <span className="text-purple-700">{"</>"}</span>
       </span>
-      <div className="flex fixed bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
+      <div className="flex fixed bottom-1 pl-3 md:bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
         <div className="pr-5">
           <Button className="w-30 border-purple-800" type={"submit"}>
             SignUp

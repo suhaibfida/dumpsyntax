@@ -35,7 +35,7 @@ export const Dashboard = () => {
   return (
     <>
       <div className="h-screen bg-gradient-to-b from-black to-purple-900 ">
-        <div className="flex fixed top-0 left-3 w-15">
+        <div className="absolute top-0 left-3 w-15">
           <img className=" rouned-xl" src="./../../dump.svg" />
           <span className="pt-7 text-gray-300 text-2xl font-bold">
             <span className=" font-bold text-3xl pr-1">
@@ -44,27 +44,6 @@ export const Dashboard = () => {
             </span>
             <span className="text-purple-600">{"</>"}</span>
           </span>
-          <div className="flex fixed bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
-            <div className="pr-5">
-              <Button
-                className="w-33 border-gray-900 bg-purple-900"
-                type={"submit"}
-                onClick={onClick}
-              >
-                Create +
-              </Button>
-            </div>
-
-            <div className="pr-5">
-              <Button
-                className="w-30 border-gray-900 bg-purple-900"
-                type={"submit"}
-                onClick={logout}
-              >
-                Logout
-              </Button>
-            </div>
-          </div>
         </div>
         <div className="fixed top-20 border-1 border-gray-800 w-screen"></div>
         <div className="flex justify-center items-center h-screen">

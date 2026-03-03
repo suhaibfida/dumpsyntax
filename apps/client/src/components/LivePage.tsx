@@ -13,8 +13,9 @@ export const LivePage = ({ docRef }: Ref) => {
   const socketRef = useRef<Socket | null>(null);
   const quillEdit = useRef<HTMLDivElement>(null);
   const quillRef = useRef<Quill | null>(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string | "">("");
   const documentRef = useRef<Delta>(null);
+  const [messagev, setMessagev] = useState<string[]>([]);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
@@ -31,6 +32,8 @@ export const LivePage = ({ docRef }: Ref) => {
       }
       await apiMessage(message);
       socketRef.current.emit("chat", { docRef, message });
+      setMessagev((prev) => [...prev, message]);
+
       setMessage("");
     } catch (err) {
       console.log(err);
@@ -123,27 +126,45 @@ export const LivePage = ({ docRef }: Ref) => {
   }, []);
   return (
     <>
-      <div className="flex h-screen bg-gray-800 p-10">
-        <div className="w-4xl h-9/10 rounded-xl bg-gray-400 ml-10 mt-7">
+      <div className="flex h-screen bg-gradient-to-b from-black to-purple-500 p-10">
+        <div className="flex absolute top-0 left-3 w-15 mb-">
+          <img className=" rouned-xl" src="./../../dump.svg" />
+          <span className="pt-7 text-gray-300 text-2xl font-bold">
+            <span className=" font-bold text-3xl pr-1">
+              <span className="text-4xl text-purple-600">D</span>
+              <span className="font-mono">ump</span>
+            </span>
+            <span className="text-purple-600">{"</>"}</span>
+          </span>
+        </div>
+        <div className="w-4xl h-9/10 pb-15 rounded-xl bg-gradient-to-b from-purple-400 to-purple-500 ml-10 mt-10 border border-purple-500 border-5">
           <div
-            className="h-9/10 bg-gray-900 text-white text-xl rounded-3xl font-mono"
+            className="h-full bg-gray-900 text-white text-xl rounded-3xl ml-2 mr-2 font-mono"
             ref={quillEdit}
           />
         </div>
-        <div>
-          <div>
-            <Button type="button" className="" onClick={saveDoc}>
+        <div className="flex absolute bottom-3 left-191">
+          <div className="pr-5">
+            <Button
+              type="button"
+              className="bg-black border-purple-300 border-3 pr-1"
+              onClick={saveDoc}
+            >
               Save
             </Button>
           </div>
           <div>
-            <Button type="button" className="" onClick={leaveDoc}>
+            <Button
+              type="button"
+              className="bg-black border-purple-300 border-3"
+              onClick={leaveDoc}
+            >
               Leave
             </Button>
           </div>
         </div>
-        <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-gray-600 rounded-xl m-20 flex flex-col">
-          <div className="flex-1"></div>
+        <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-purple-500 rounded-xl m-20 flex flex-col">
+          <div className="flex-1">{messagev}</div>
           <div className="flex">
             <Input
               className="mt-8 m-5 mr-4 pr-5 text-white"
@@ -154,10 +175,10 @@ export const LivePage = ({ docRef }: Ref) => {
             />
             <Button
               type="button"
-              className="mt-8 mb-5 mr-2 p-1 pl-4 pr-4 rounded-4xl"
+              className="mt-8 bg-purple-800 mb-5 mr-2 p-1 pl-5 pr-5 border-purple-400 rounded-4xl"
               onClick={onClick}
             >
-              {">"}
+              ➤
             </Button>
           </div>
         </div>

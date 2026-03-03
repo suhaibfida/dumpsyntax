@@ -25,8 +25,19 @@ export const Join = ({ inpRef }: Ref) => {
   };
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-black">
-        <div className="flex-col pt-5 h-96 w-80 backdrop-blur-xl bg-white/7 rounded-xl border border-gray-500">
+      <div className="flex justify-center items-center h-screen bg-gradient-to-b from-black to-purple-500">
+        <div className="flex fixed top-0 left-3 w-15">
+          <img className=" rouned-xl" src="./../../dump.svg" />
+          <span className="pt-7 text-gray-300 text-2xl font-bold">
+            <span className=" font-bold text-3xl pr-1">
+              <span className="text-4xl text-purple-600">D</span>
+              <span className="font-mono">ump</span>
+            </span>
+            <span className="text-purple-600">{"</>"}</span>
+          </span>
+          <div className="flex fixed bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto"></div>
+        </div>
+        <div className="flex-col pt-5 h-96 w-80 backdrop-blur-xl bg-black/50 rounded-xl border border-gray-500">
           <div className="font-bold pl-22 text-xl underline text-purple-500">
             Join Document
           </div>
@@ -37,8 +48,12 @@ export const Join = ({ inpRef }: Ref) => {
           <div className="pl-7 pt-2 text-white">
             <Input ref={inpRef} type="text" placeholder="Code" />
           </div>
-          <div className="pl-7 pt-10 text-white">
-            <Button type="submit" onClick={onClick}>
+          <div className="pl-28 pt-10 text-white">
+            <Button
+              className="border-purple-500 pl-5 pr-5"
+              type="submit"
+              onClick={onClick}
+            >
               Join
             </Button>
           </div>
