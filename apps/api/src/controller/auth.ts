@@ -67,7 +67,7 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-// -----------------------------------Login-------------------------------------------------------
+//-----------------------------------Login-------------------------------------------------------
 
 export const login = async (req: Request, res: Response) => {
   const safeParse = loginType.safeParse(req.body);
@@ -112,12 +112,25 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ id: user.id }, secret, { expiresIn: "12d" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 28 * 24 * 60 * 60 * 1000,
+    });
     return res.status(200).json({
-      token: token,
       message: "Login successfully",
     });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });
   }
+};
+export const logout = (req: Request, res: Response) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    expires: new Date(0),
+  });
 };

@@ -18,7 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <input
-        className={`p-3 w-3xs rounded-xl border border-gray-600 ${className}`}
+        className={`p-3 w-3xs rounded-xl border border-gray-400 ${className}`}
         type={type}
         placeholder={placeholder}
         name={name}
