@@ -51,6 +51,8 @@ export const Dashboard = () => {
             {items.map((doc) => (
               <Card key={doc.id} doc={doc.value} />
             ))}
+            <Button onClick={onClick}>Create Document +</Button>
+            <Button onClick={logout}>CLogout</Button>
           </div>
         </div>
       </div>
