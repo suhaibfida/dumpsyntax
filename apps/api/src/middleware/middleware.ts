@@ -13,13 +13,14 @@ interface JwtCustomPayload extends JwtPayload {
 }
 const middleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
+  const secret = process.env.JWT_SECRET;
 
   if (!token) {
     return res.status(401).json({
       error: "Invalid session",
     });
   }
-  const secret = process.env.JWT_SECRET;
+
   if (!secret) {
     return res.status(500).json({
       error: "Internal server error",

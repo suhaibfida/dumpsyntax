@@ -7,8 +7,9 @@ interface Login {
   usernameOrEmail: string;
   password: string;
 }
+const api_Url = import.meta.env.VITE_API_URL;
 export const signup = async (data: Signup) => {
-  const res = await fetch("http://localhost:3000/signup", {
+  const res = await fetch(`${api_Url}/signup`, {
     method: "POST",
     headers: { "content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -20,7 +21,7 @@ export const signup = async (data: Signup) => {
 };
 
 export const login = async (data: Login) => {
-  const res = await fetch("http://localhost/login", {
+  const res = await fetch(`${api_Url}/login`, {
     method: "POST",
     headers: { "content-Type": "application/json" },
     body: JSON.stringify(data),

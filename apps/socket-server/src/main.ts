@@ -5,13 +5,17 @@ import "dotenv/config";
 import authSocketMiddleware from "./middleware/authSocketMiddleware";
 import errHandler from "./errHandler/err";
 import prisma from "@repo/db/prisma";
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
+const frontEndUrl = process.env.FRONTEND_URL;
 const app = express();
 const httpServer = http.createServer(app);
 
+if (!port || !frontEndUrl) {
+  throw new Error("port & url not defined");
+}
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: frontEndUrl,
   },
 });
 io.use(authSocketMiddleware);

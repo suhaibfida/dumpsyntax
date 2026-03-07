@@ -5,11 +5,12 @@ import router from "./router/router";
 import "dotenv/config";
 
 const app = express();
+const frontEndUrl = process.env.FRONTEND_URL;
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: frontEndUrl,
     credentials: true,
   }),
 );

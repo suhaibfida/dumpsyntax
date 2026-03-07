@@ -5,6 +5,7 @@ interface JwtCustomPayload extends JwtPayload {
   userId: string;
 }
 const authSocketMiddleware = (socket: Socket, next: (err?: Error) => void) => {
+  const jwt_Secret = process.env.JWT_SECRET;
   try {
     const cookieHeader = socket.handshake.headers.cookie;
     if (!cookieHeader) {
@@ -12,7 +13,7 @@ const authSocketMiddleware = (socket: Socket, next: (err?: Error) => void) => {
     }
     const cookies = cookie.parse(cookieHeader);
     const token = cookies.token;
-    const jwtsecret = process.env.JWT_SECRET;
+    const jwtsecret = jwt_Secret;
     if (!jwtsecret) {
       return next(new Error("Token not available"));
     }
