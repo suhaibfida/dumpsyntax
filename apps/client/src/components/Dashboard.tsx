@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import { useNavigate } from "react-router-dom";
 
 import { apiShow } from "./api/api";
-
+const api_Url = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
   const navigate = useNavigate();
   const inpRef = useRef<HTMLInputElement[]>([]);
@@ -13,7 +13,7 @@ export const Dashboard = () => {
     navigate("/createdocument");
   };
   const logout = async () => {
-    await fetch("http://localhost:3000/api/v1/logout", {
+    await fetch(`${api_Url}/api/v1/logout`, {
       method: "POST",
       credentials: "include",
     });
