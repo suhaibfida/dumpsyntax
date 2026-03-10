@@ -10,6 +10,13 @@ import { Navbar } from "./Navbar";
 type loginSchema = z.infer<typeof loginType>;
 export const Login = () => {
   const navigate = useNavigate();
+  const signUp = () => {
+    navigate("/signup");
+  };
+  const onLogin = () => {
+    navigate("/login");
+  };
+
   const {
     register,
     handleSubmit,
@@ -26,7 +33,7 @@ export const Login = () => {
   return (
     <>
       <div className="flex items-center justify-center h-screen bg-gradient-to-b from-black to-purple-900 ">
-        <Navbar />
+        <Navbar signUp={signUp} login={onLogin} />
         <div className="fixed top-20 w-screen h-px bg-purple-900" />
         <form
           onSubmit={handleSubmit(onSubmit)}

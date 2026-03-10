@@ -1,7 +1,8 @@
+import "dotenv/config";
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import "dotenv/config";
+
 import authSocketMiddleware from "./middleware/authSocketMiddleware";
 import errHandler from "./errHandler/err";
 import prisma from "@repo/db/prisma";

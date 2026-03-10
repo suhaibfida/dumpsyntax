@@ -7,46 +7,48 @@ import "dotenv/config";
 
 export const signup = async (req: Request, res: Response) => {
   const safeParse = signupType.safeParse(req.body);
+  console.log(safeParse);
   if (!safeParse.success) {
     return res.status(400).json({
       errors: safeParse.error.issues,
     });
   }
   try {
-    const existingUser = await prisma.user.findMany({
+    console.log("hello");
+    const existingUser = await prisma.user.findUnique({
       where: {
-        OR: [
-          { username: safeParse.data.username.toLowerCase() },
-          { email: safeParse.data.email },
-        ],
+        username: safeParse.data.username.toLowerCase(),
+
+        // OR: [
+        //   { username: safeParse.data.username.toLowerCase() },
+        //   { email: safeParse.data.email },
+        // ],
       },
     });
-
-    if (existingUser.length > 0) {
-      const checkUser = existingUser.some(
-        (u: any) => u.username === safeParse.data.username,
-      );
-      const checkEmail = existingUser.some(
-        (u: any) => u.email === safeParse.data.email,
-      );
-      if (checkUser || checkEmail) {
-        return res.status(409).json({
-          errors: {
-            username: checkUser ? "Username already taken" : null,
-            email: checkEmail ? "Email already taken" : null,
-          },
-        });
-      }
-    }
-    const hashedisPasswordCorrect = await bcrypt.hash(
-      safeParse.data.password,
-      10,
-    );
+    console.log(existingUser);
+    console.log("hello");
+    // if (existingUser.length > 0) {
+    //   const checkUser = existingUser.some(
+    //     (u: any) => u.username === safeParse.data.username,
+    //   );
+    //   const checkEmail = existingUser.some(
+    //     (u: any) => u.email === safeParse.data.email,
+    //   );
+    //   if (checkUser || checkEmail) {
+    //     return res.status(409).json({
+    //       errors: {
+    //         username: checkUser ? "Username already taken" : null,
+    //         email: checkEmail ? "Email already taken" : null,
+    //       },
+    //     });
+    //   }
+    // }
+    const hashedisPassword = await bcrypt.hash(safeParse.data.password, 10);
     await prisma.user.create({
       data: {
         username: safeParse.data.username.toLowerCase(),
         email: safeParse.data.email.toLowerCase(),
-        password: hashedisPasswordCorrect,
+        password: hashedisPassword,
       },
     });
     return res.status(201).json({
@@ -129,7 +131,7 @@ export const login = async (req: Request, res: Response) => {
 export const logout = (req: Request, res: Response) => {
   res.cookie("token", "", {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: "lax",
     expires: new Date(0),
   });

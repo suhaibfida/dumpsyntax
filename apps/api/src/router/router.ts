@@ -13,5 +13,6 @@ router.get("/dashboard", middleware, dashboard);
 router.post("/dashboard/createdocument", middleware, createDocument);
 router.post("/joindocument", middleware, joinDocument);
 router.post("/showDocument", middleware, showDocument);
-router.post("/logout", logout);
+router.post("/logout", middleware, logout);
+router.post("/me", middleware);
 export default router;

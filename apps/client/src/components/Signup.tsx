@@ -12,6 +12,13 @@ type SignUpFormData = z.infer<typeof signupType>;
 
 export const Signup = () => {
   const navigate = useNavigate();
+  const signUp = () => {
+    navigate("/signup");
+  };
+  const login = () => {
+    navigate("/login");
+  };
+
   const {
     register,
     handleSubmit,
@@ -21,6 +28,7 @@ export const Signup = () => {
   });
 
   const onSubmit = async (data: SignUpFormData) => {
+    console.log(data);
     try {
       const result = await signup(data);
       console.log(result);
@@ -32,7 +40,7 @@ export const Signup = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-black to-purple-900">
-      <Navbar />
+      <Navbar signUp={signUp} login={login} />
       <div className="fixed top-20 w-screen h-px bg-purple-900" />
       <form
         onSubmit={handleSubmit(onSubmit)}

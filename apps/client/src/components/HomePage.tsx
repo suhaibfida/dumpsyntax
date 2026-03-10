@@ -1,11 +1,20 @@
 import { Navbar } from "./Navbar";
 import { Button } from "@repo/ui/Button";
 import { Down } from "@repo/ui/Down";
+import { useNavigate } from "react-router-dom";
 export const HomePage = () => {
+  const navigate = useNavigate();
+  const onClick = () => {};
+  const signUp = () => {
+    navigate("/signup");
+  };
+  const login = () => {
+    navigate("/login");
+  };
   return (
     <>
       <div className="flex bg-gradient-to-b from-black to-purple-900 items-center justify-center flex-col h-screen text-white">
-        <Navbar />
+        <Navbar signUp={signUp} login={login} />
         <div className="w-3xl ml-17  space-y-5">
           <div className=" font-bold text-5xl text-gray-200 ml-1">
             Welcome to <span className="text-purple-700">D</span>ump
@@ -27,6 +36,7 @@ export const HomePage = () => {
             className="bg-black  text-
             xl rounded-full border-purple-400 font-mono"
             type="submit"
+            onClick={onClick}
           >
             Create Live Document{" "}
             <span className="inline-block translate-y-0.5 text-2xl text-purple-300">
