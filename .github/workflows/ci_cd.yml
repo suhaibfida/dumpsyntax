@@ -31,5 +31,5 @@ jobs:
       # Step 5 — Build backend services only
       - name: Build API and socket server
         run: |
-          pnpm turbo run build --filter=api
-          pnpm turbo run build --filter=socket-server
+          pnpm turbo run build --filter=@repo/api
+          pnpm turbo run build --filter=@repo/socket-server
