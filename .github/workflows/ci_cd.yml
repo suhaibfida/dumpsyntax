@@ -29,10 +29,7 @@ jobs:
         run: pnpm install
 
       - name: Prisma generate
-        run: pnpm add prisma
-
-      - name: Prisma generate
-        run: pnpm prisma generate
+        run: pnpm --filter @repo/db prisma generate
 
       # Step 5 — Build backend services only
       - name: Build API and socket server
