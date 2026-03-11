@@ -7,8 +7,8 @@ import { apiShow } from "./api/api";
 const api_Url = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
   const res = async () => {
-    const res = await fetch("/me", { credentials: "include" });
-    if (!res) {
+    const res = await fetch(`${api_Url}/me`, { credentials: "include" });
+    if (!res.ok) {
       navigate("/login");
     }
   };
