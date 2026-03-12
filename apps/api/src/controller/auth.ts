@@ -129,10 +129,14 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 export const logout = (req: Request, res: Response) => {
+  console.log("backend");
   res.cookie("token", "", {
     httpOnly: true,
     secure: false,
     sameSite: "lax",
     expires: new Date(0),
+  });
+  return res.status(200).json({
+    message: "Logout successfully",
   });
 };

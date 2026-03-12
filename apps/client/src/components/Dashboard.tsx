@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
 import { Button } from "@repo/ui/Button";
-import { Card } from "./Card";
+// import { Card } from "./Card";
 import { useNavigate } from "react-router-dom";
 
 import { apiShow } from "./api/api";
 const api_Url = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
-  const res = async () => {
-    const res = await fetch(`${api_Url}/me`, { credentials: "include" });
+  response();
+  async function response() {
+    const res = await fetch(`${api_Url}/me`, {
+      method: "GET",
+      credentials: "include",
+    });
     if (!res.ok) {
       navigate("/login");
     }
-  };
-  res();
+  }
+
   const navigate = useNavigate();
-  const [output, setOutput] = useState<any[]>([]);
+  const [output, setOutput] = useState<string[]>([]);
 
   const onClick = async () => {
     navigate("/createdocument");
   };
   const logout = async () => {
     console.log("hello");
-    const e = await fetch(`${api_Url}/logout`, {
+    await fetch(`${api_Url}/logout`, {
       method: "POST",
       credentials: "include",
     });
-    console.log(e);
+    navigate("/login");
   };
   useEffect(() => {
     async function call() {
@@ -71,13 +75,13 @@ export const Dashboard = () => {
         <div className="fixed top-20 border-1 border-gray-800 w-screen"></div>
         <div className="flex justify-center items-center h-screen">
           <div className="flex flex-wrap h-3/4 w-5/6 mt-20 border bg-gradient-to-b from black to-gray-800 rounded-2xl border-gray-800 border-3 w-4xl">
-            {output.length === 0 ? (
+            {/* {output.length === 0 ? (
               <p className="text-2xl text-white font-mono p-50 pl-130">
                 No data here
               </p>
             ) : (
               output.map((doc) => <Card key={doc.id} doc={doc.value} />)
-            )}
+            )} */}
           </div>
         </div>
       </div>

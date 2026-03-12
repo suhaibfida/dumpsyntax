@@ -40,7 +40,7 @@ export const apiSave = async <T>(data: T) => {
   });
 };
 export const apiShow = async () => {
-  const res = await fetch(`${api_Url}/api/v1/dashboard`, {
+  const res = await fetch(`${api_Url}/dashboard`, {
     method: "GET",
     credentials: "include",
   });

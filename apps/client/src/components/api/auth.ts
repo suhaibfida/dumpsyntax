@@ -29,9 +29,11 @@ export const login = async (data: Login) => {
     method: "POST",
     headers: { "content-Type": "application/json" },
     body: JSON.stringify(data),
+    credentials: "include",
   });
+  console.log(res + "hello");
   if (!res) {
     throw new Error("Signup failed");
   }
-  return;
+  return res;
 };

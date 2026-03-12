@@ -2,10 +2,12 @@ import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
 import { useRef, useState } from "react";
 import { apiCreate } from "./api/api";
+import { useNavigate } from "react-router-dom";
 export const CreateDoc = () => {
   const [loading, setLoading] = useState("Create");
   const [disabled, setDisabled] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
   const onClick = async () => {
     setLoading("creating....");
     setDisabled(true);
@@ -18,9 +20,9 @@ export const CreateDoc = () => {
     }
     try {
       await apiCreate({ data: value });
-      console.log();
       setLoading("Create");
       setDisabled(false);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }

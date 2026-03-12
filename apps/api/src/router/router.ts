@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Response, Request } from "express";
 import { signup, login } from "../controller/auth";
 import dashboard from "../controller/createDocument";
 import middleware from "../middleware/middleware";
@@ -14,5 +15,9 @@ router.post("/dashboard/createdocument", middleware, createDocument);
 router.post("/joindocument", middleware, joinDocument);
 router.post("/showDocument", middleware, showDocument);
 router.post("/logout", middleware, logout);
-router.post("/me", middleware);
+router.get("/me", middleware, (req: Request, res: Response) => {
+  return res.json({
+    message: "Authentication complete",
+  });
+});
 export default router;

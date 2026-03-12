@@ -13,6 +13,7 @@ interface JwtCustomPayload extends JwtPayload {
 }
 const middleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token;
+
   const secret = process.env.JWT_SECRET;
 
   if (!token) {
