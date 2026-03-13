@@ -19,7 +19,7 @@ export const CreateDoc = () => {
       throw new Error("Error");
     }
     try {
-      await apiCreate({ data: value });
+      await apiCreate({ title: value });
       setLoading("Create");
       setDisabled(false);
       navigate("/dashboard");

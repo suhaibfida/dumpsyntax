@@ -35,6 +35,7 @@ const middleware = (req: Request, res: Response, next: NextFunction) => {
       });
     }
     req.userId = (decoded as JwtCustomPayload).id;
+    console.log(req.userId + "hellowhy is that");
     next();
   } catch (err) {
     console.error(err);

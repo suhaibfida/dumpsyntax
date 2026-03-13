@@ -4,24 +4,24 @@ import prisma from "@repo/db/prisma";
 
 const createDocument = async (req: Request, res: Response) => {
   const safeParse = documentType.safeParse(req.body);
+
   if (!safeParse.success) {
     return res.status(400).json({
       error: safeParse.error.issues,
     });
   }
-
   const id = req.userId;
   if (!id) {
     return res.status(401).json({
       message: "Unauthorized",
     });
   }
+
   try {
     const document = await prisma.$transaction(async (tx: any) => {
       const doc = await tx.document.create({
         data: {
           title: safeParse.data.title,
-          content: safeParse.data.content,
           ownerId: id,
         },
       });

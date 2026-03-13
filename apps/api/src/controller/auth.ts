@@ -7,14 +7,13 @@ import "dotenv/config";
 
 export const signup = async (req: Request, res: Response) => {
   const safeParse = signupType.safeParse(req.body);
-  console.log(safeParse);
+
   if (!safeParse.success) {
     return res.status(400).json({
       errors: safeParse.error.issues,
     });
   }
   try {
-    console.log("hello");
     const existingUser = await prisma.user.findUnique({
       where: {
         username: safeParse.data.username.toLowerCase(),
@@ -25,8 +24,7 @@ export const signup = async (req: Request, res: Response) => {
         // ],
       },
     });
-    console.log(existingUser);
-    console.log("hello");
+
     // if (existingUser.length > 0) {
     //   const checkUser = existingUser.some(
     //     (u: any) => u.username === safeParse.data.username,
@@ -129,7 +127,6 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 export const logout = (req: Request, res: Response) => {
-  console.log("backend");
   res.cookie("token", "", {
     httpOnly: true,
     secure: false,

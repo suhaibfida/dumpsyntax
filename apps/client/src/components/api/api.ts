@@ -1,9 +1,10 @@
 const api_Url = import.meta.env.VITE_API_URL;
-export const apiCreate = async <T>(data: T) => {
-  const res = await fetch(`${api_Url}/api/v1/dashboard/createdocument`, {
+export const apiCreate = async <T>(title: T) => {
+  console.log(JSON.stringify(title));
+  const res = await fetch(`${api_Url}/dashboard/createdocument`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify(title),
     credentials: "include",
   });
   if (!res) {

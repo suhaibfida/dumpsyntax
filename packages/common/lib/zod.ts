@@ -20,5 +20,4 @@ export const loginType = z.object({
 
 export const documentType = z.object({
   title: z.string().min(1).max(1000),
-  content: z.string().min(1).max(50000),
 });
