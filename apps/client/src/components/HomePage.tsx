@@ -3,8 +3,20 @@ import { Button } from "@repo/ui/Button";
 import { Down } from "@repo/ui/Down";
 import { useNavigate } from "react-router-dom";
 export const HomePage = () => {
+  const api_Url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
-  const onClick = () => {};
+  const onClick = async () => {
+    const res = await fetch(`${api_Url}/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      navigate("/login");
+    } else {
+      navigate("/dashboard");
+    }
+  };
+
   const signUp = () => {
     navigate("/signup");
   };
