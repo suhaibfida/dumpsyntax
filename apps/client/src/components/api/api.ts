@@ -41,10 +41,16 @@ export const apiSave = async <T>(data: T) => {
   });
 };
 export const apiShow = async () => {
-  const res = await fetch(`${api_Url}/dashboard`, {
+  console.log("hesdllo");
+  const res = await fetch(`${api_Url}/showdocument`, {
     method: "GET",
+    headers: { "content-type": "application/json" },
     credentials: "include",
   });
+  if (!res.ok) {
+    throw new Error("Api error");
+  }
   const data = await res.json();
+  console.log("hello" + data);
   return data;
 };

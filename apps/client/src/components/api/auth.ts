@@ -8,7 +8,6 @@ interface Login {
   password: string;
 }
 const api_Url = import.meta.env.VITE_API_URL;
-console.log("HELLO" + api_Url);
 
 export const signup = async (data: Signup) => {
   console.log(data);
@@ -31,7 +30,7 @@ export const login = async (data: Login) => {
     body: JSON.stringify(data),
     credentials: "include",
   });
-  console.log(res + "hello");
+
   if (!res) {
     throw new Error("Signup failed");
   }

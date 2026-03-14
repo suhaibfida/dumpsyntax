@@ -10,10 +10,9 @@ import { logout } from "../controller/auth";
 const router: Router = Router();
 router.post("/signup", signup);
 router.post("/login", login);
-router.get("/dashboard", middleware, dashboard);
 router.post("/dashboard/createdocument", middleware, createDocument);
 router.post("/joindocument", middleware, joinDocument);
-router.post("/showDocument", middleware, showDocument);
+router.get("/showdocument", middleware, showDocument);
 router.post("/logout", middleware, logout);
 router.get("/me", middleware, (req: Request, res: Response) => {
   return res.json({
