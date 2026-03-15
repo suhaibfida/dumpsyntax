@@ -25,7 +25,7 @@ export const HomePage = () => {
   };
   return (
     <>
-      <div className="flex bg-gradient-to-b from-black to-purple-900 items-center justify-center flex-col h-screen text-white">
+      <div className="flex bg-gradient-to-b from-black to-sky-900 items-center justify-center flex-col h-screen text-white">
         <Navbar signUp={signUp} login={login} />
         <div className="w-3xl ml-17  space-y-5">
           <div className=" font-bold text-5xl text-gray-200 ml-1">
