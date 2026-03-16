@@ -12,6 +12,17 @@ type SignUpFormData = z.infer<typeof signupType>;
 
 export const Signup = () => {
   const navigate = useNavigate();
+  const api_Url = import.meta.env.VITE_API_URL;
+  const run = async () => {
+    const res = await fetch(`${api_Url}/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.ok) {
+      navigate("/dashboard");
+    }
+  };
+  run();
   const signUp = () => {
     navigate("/signup");
   };

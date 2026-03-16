@@ -9,7 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "./Navbar";
 type loginSchema = z.infer<typeof loginType>;
 export const Login = () => {
+  const api_Url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+  const run = async () => {
+    const res = await fetch(`${api_Url}/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (res.ok) {
+      navigate("/dashboard");
+    }
+  };
+  run();
   const signUp = () => {
     navigate("/signup");
   };
