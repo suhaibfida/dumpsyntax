@@ -6,22 +6,12 @@ WORKDIR /app
 RUN corepack enable
 
 # Copy root files
-COPY package.json pnpm-lock.yaml ./
-
-# Copy workspace package.jsons
-COPY apps/api/package.json ./apps/api/
-COPY packages/common/package.json ./packages/common/
-COPY packages/db/package.json ./packages/db/
-COPY packages/typescript-config/package.json ./packages/typescript-config/
-
+COPY . .
 # Install dependencies
 RUN pnpm install
-
-# Copy full repo
-COPY . .
-
 # Build only api
-RUN pnpm run build --filter=@repo/api
+RUN pnpm --filter=@repo/db exec prisma generate
+RUN pnpm --filter=@repo/api build
 
 # Run app
 CMD ["node", "apps/api/dist/main.js"]
