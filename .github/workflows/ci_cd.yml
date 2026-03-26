@@ -52,7 +52,7 @@ jobs:
             source $NVM_DIR/nvm.sh
             pnpm install
             pnpm --filter=@repo/db exec prisma generate
-            pnpm turbo run build --filter=api --filter=socket-server
+            pnpm turbo run build --filter=@repo/api --filter=@repo/socket-server
 
             pm2 delete api || true
             pm2 delete socket-server || true
