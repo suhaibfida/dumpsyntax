@@ -48,7 +48,6 @@ jobs:
             cd ~/dumpsyntax
             git fetch origin
             git reset --hard origin/main
-            corepack enable
             pnpm install
             pnpm --filter=@repo/db exec prisma generate
             pnpm turbo run build --filter=api --filter=socket-server
