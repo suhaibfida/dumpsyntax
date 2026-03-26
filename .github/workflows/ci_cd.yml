@@ -48,6 +48,8 @@ jobs:
             cd ~/dumpsyntax
             git fetch origin
             git reset --hard origin/main
+            export NVM_DIR="$HOME/.nvm"
+            source $NVM_DIR/nvm.sh
             pnpm install
             pnpm --filter=@repo/db exec prisma generate
             pnpm turbo run build --filter=api --filter=socket-server
