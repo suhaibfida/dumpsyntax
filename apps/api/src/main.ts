@@ -6,7 +6,7 @@ import "dotenv/config";
 
 const app = express();
 const frontEndUrl = process.env.FRONTEND_URL;
-console.log(frontEndUrl);
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -17,4 +17,4 @@ app.use(
 );
 app.use("/api/v1", router);
 app.listen(3001);
-console.log("App is running  on 3000");
+console.log("App is running  on 3001");

@@ -10,7 +10,7 @@ const port = process.env.PORT;
 const frontEndUrl = process.env.FRONTEND_URL;
 const app = express();
 const httpServer = http.createServer(app);
-
+console.log("in socket");
 if (!port || !frontEndUrl) {
   throw new Error("port & url not defined");
 }
@@ -20,12 +20,16 @@ const io = new Server(httpServer, {
   },
 });
 io.use(authSocketMiddleware);
+console.log("ist line");
 io.on("connection", (socket) => {
   const userId = socket.data.userId;
+  console.log(userId);
   if (!userId) {
     console.log("Unauthorized socket");
     return socket.disconnect();
   }
+  console.log("in sos");
+  console.log("in socket");
   socket.on(
     "get-document",
     errHandler(socket, async (documentId) => {

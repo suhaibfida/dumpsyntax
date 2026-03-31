@@ -54,7 +54,7 @@ export const signup = async (req: Request, res: Response) => {
     });
   } catch (err: unknown) {
     const error = err as any;
-    console.error("SignUp error:", error);
+
     if (error.code === "P2002") {
       return res.status(409).json({
         message: "Email or username already taken",

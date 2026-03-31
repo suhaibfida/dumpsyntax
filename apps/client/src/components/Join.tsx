@@ -5,10 +5,18 @@ import { useNavigate } from "react-router-dom";
 interface Ref {
   inpRef: React.RefObject<HTMLInputElement | null>;
 }
+const api_url = import.meta.env.VITE_API_URL;
 export const Join = ({ inpRef }: Ref) => {
   const navigate = useNavigate();
 
   const onClick = async () => {
+    const response = await fetch(`${api_url}/me`, {
+      method: "get",
+      credentials: "include",
+    });
+    if (!response.ok) {
+      return;
+    }
     if (!inpRef.current) {
       return;
     }
@@ -17,8 +25,9 @@ export const Join = ({ inpRef }: Ref) => {
       throw new Error("Failed Operation");
     }
     try {
-      await apiJoin({ data: value });
-      navigate("/document/live");
+      const response = await apiJoin({ data: value });
+      console.log(response);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
     }

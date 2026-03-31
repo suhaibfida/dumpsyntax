@@ -13,12 +13,13 @@ export const apiCreate = async <T>(title: T) => {
   return;
 };
 export const apiJoin = async <T>(data: T) => {
-  const res = await fetch(`${api_Url}/api/v1//joindocument`, {
+  const res = await fetch(`${api_Url}/joindocument`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
     credentials: "include",
   });
+  console.log("api 2");
   if (!res) {
     throw new Error("Operation failed");
   }

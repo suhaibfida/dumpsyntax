@@ -63,6 +63,7 @@ export const LivePage = ({ docRef }: Ref) => {
     }
   };
   useEffect(() => {
+    console.log("hello");
     if (!quillEdit.current) {
       return;
     }
@@ -73,12 +74,15 @@ export const LivePage = ({ docRef }: Ref) => {
     const quill = new Quill(quillEdit.current, {
       theme: "snow",
     });
+    console.log("hello12");
     quillRef.current = quill;
     documentRef.current = quillRef.current.getContents();
     socketRef.current = io("ws://localhost:8080");
+    console.log("hello12");
     socketRef.current.on("connection", () => {
       console.log("Connection established successfully");
     });
+    console.log("hello123");
     socketRef.current.emit(
       "get-document",
       { documentId: docRef.current?.value },
@@ -123,6 +127,7 @@ export const LivePage = ({ docRef }: Ref) => {
         socketRef.current.disconnect();
       }
     };
+    console.log("hello12");
   }, []);
   return (
     <>

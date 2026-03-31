@@ -3,7 +3,9 @@ import prisma from "@repo/db/prisma";
 
 const joinDocument = async (req: Request, res: Response) => {
   const userId = req.userId;
-  const { documentId } = req.body;
+  console.log(userId);
+  const { data: documentId } = req.body;
+  console.log(documentId + "{{{{{");
 
   if (!userId || !documentId) {
     return res.status(401).json({
@@ -16,6 +18,8 @@ const joinDocument = async (req: Request, res: Response) => {
         id: documentId,
       },
     });
+    console.log(findDocument);
+    console.log("backend api req");
     const alreadyJoined = await prisma.documentMember.findUnique({
       where: {
         documentId_memberId: {

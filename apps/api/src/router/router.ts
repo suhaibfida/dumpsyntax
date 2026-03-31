@@ -4,7 +4,7 @@ import { signup, login } from "../controller/auth";
 import dashboard from "../controller/createDocument";
 import middleware from "../middleware/middleware";
 import createDocument from "../controller/createDocument";
-import joinDocument from "../controller/createDocument";
+import joinDocument from "../controller/joinDocument";
 import showDocument from "../controller/showDocument";
 import { logout } from "../controller/auth";
 const router: Router = Router();

@@ -30,6 +30,9 @@ export const Dashboard = () => {
   const onClick = async () => {
     navigate("/createdocument");
   };
+  const join = async () => {
+    navigate("/join");
+  };
   const logout = async () => {
     console.log("hello");
     await fetch(`${api_Url}/logout`, {
@@ -59,13 +62,20 @@ export const Dashboard = () => {
       <div className="h-screen bg-gradient-to-b from-black to-purple-900 ">
         <div className="fixed top-5 right-10">
           <Button
-            className="mr-5 bg-purple-900 font-bold  border-purple-900 border-white"
+            className="mr-5 bg-purple-900 font-bold  border-purple-900 border-red-300"
             onClick={onClick}
           >
             Create Document +
           </Button>
+
           <Button
-            className="mr-5 bg-purple-900 font-bold border-purple-900 border-white"
+            className="mr-5 bg-purple-900 font-bold border-purple-900 border-red-300"
+            onClick={join}
+          >
+            Add Project +
+          </Button>
+          <Button
+            className="mr-5 bg-purple-900 font-bold border-purple-900 border-red-300"
             onClick={logout}
           >
             Logout
