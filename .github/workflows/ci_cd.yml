@@ -66,6 +66,6 @@ jobs:
             export JWT_SECRET=${{ secrets.JWT_SECRET }}
             export DATABASE_URL=${{ secrets.DATABASE_URL }}
 
-            pm2 start apps/socket-server/dist/main.js --name socket-server
+            pm2 reload socket-server --update-env || pm2 start apps/socket-server/dist/main.js --name socket-server
             pm2 save
             pm2 list
