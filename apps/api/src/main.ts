@@ -11,11 +11,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://dumpsyntax.suhaibfida.dev",
+    origin: frontEndUrl,
     credentials: true,
   }),
 );
 app.options("*", cors());
 app.use("/api/v1", router);
-app.listen(3000);
+app.listen(process.env.PORT);
 console.log("App is running  on 3000");
