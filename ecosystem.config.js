@@ -6,7 +6,7 @@ module.exports = {
       instances: 2,
       exec_mode: "cluster",
       env: {
-        PORT: 4000,
+        PORT: 3000,
         FRONTEND_URL: "https://dumpsyntax.suhaibfida.dev",
         JWT_SECRET: process.env.JWT_SECRET,
         DATABASE_URL: process.env.DATABASE_URL,

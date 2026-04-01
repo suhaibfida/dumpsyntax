@@ -15,6 +15,7 @@ app.use(
     credentials: true,
   }),
 );
+app.options("*", cors());
 app.use("/api/v1", router);
 app.listen(3001);
 console.log("App is running  on 3001");
