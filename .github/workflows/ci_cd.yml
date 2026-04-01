@@ -56,7 +56,7 @@ jobs:
 
             PORT=4000 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} DATABASE_URL=${{ secrets.DATABASE_URL }} pm2 reload api --update-env|| PORT=4000 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} DATABASE_URL=${{ secrets.DATABASE_URL }} pm2 start apps/api/dist/main.js -i 2 --name api
 
-             PORT=4000 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} DATABASE_URL=${{ secrets.DATABASE_URL }} pm2 restart socket --update-env|| PORT=4001 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} pm2 start apps/socket-server/dist/main.js --name socket-server
+             PORT=4001 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} DATABASE_URL=${{ secrets.DATABASE_URL }} pm2 restart socket --update-env|| PORT=4001 FRONTEND_URL=https://dumpsyntax.suhaibfida.dev JWT_SECRET=${{ secrets.JWT_SECRET }} pm2 start apps/socket-server/dist/main.js --name socket-server
 
             pm2 save
             pm2 list
