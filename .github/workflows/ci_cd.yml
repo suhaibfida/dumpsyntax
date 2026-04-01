@@ -60,8 +60,6 @@ jobs:
 
             pm2 startOrReload ecosystem.config.js
 
-            export PORT=4001
-
             pm2 reload socket-server --update-env || pm2 start apps/socket-server/dist/main.js --name socket-server
             pm2 save
             pm2 list

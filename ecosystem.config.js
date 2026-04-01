@@ -17,7 +17,7 @@ module.exports = {
       script: "apps/socket-server/dist/main.js",
       exec_mode: "fork",
       env: {
-        PORT: 4001,
+        PORT: 4000,
         FRONTEND_URL: "https://dumpsyntax.suhaibfida.dev",
         JWT_SECRET: process.env.JWT_SECRET,
         DATABASE_URL: process.env.DATABASE_URL,
