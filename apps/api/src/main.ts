@@ -9,13 +9,13 @@ const frontEndUrl = process.env.FRONTEND_URL;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: frontEndUrl,
-    credentials: true,
-  }),
-);
-app.options("*", cors());
+const corsOptions = {
+  origin: frontEndUrl,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use("/api/v1", router);
 app.listen(process.env.PORT);
 console.log("App is running  on 3000");
