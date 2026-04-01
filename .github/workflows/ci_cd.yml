@@ -54,17 +54,13 @@ jobs:
             pnpm --filter=@repo/db exec prisma generate
             pnpm turbo run build --filter=@repo/api --filter=@repo/socket-server
 
-            export PORT=4000
-            export FRONTEND_URL=https://dumpsyntax.suhaibfida.dev
+
             export JWT_SECRET=${{ secrets.JWT_SECRET }}
             export DATABASE_URL=${{ secrets.DATABASE_URL }}
 
-            pm2 reload api --update-env || pm2 start apps/api/dist/main.js -i 2 --name api
+            pm2 startOrReload ecosystem.config.js
 
             export PORT=4001
-            export FRONTEND_URL=https://dumpsyntax.suhaibfida.dev
-            export JWT_SECRET=${{ secrets.JWT_SECRET }}
-            export DATABASE_URL=${{ secrets.DATABASE_URL }}
 
             pm2 reload socket-server --update-env || pm2 start apps/socket-server/dist/main.js --name socket-server
             pm2 save
