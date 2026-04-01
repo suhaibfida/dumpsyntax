@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: frontEndUrl,
+    origin: "https://dumpsyntax.suhaibfida.dev",
     credentials: true,
   }),
 );
