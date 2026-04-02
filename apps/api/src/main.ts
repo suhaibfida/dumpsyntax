@@ -15,7 +15,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options("/{*any}", cors(corsOptions));
 app.use("/api/v1", router);
 app.listen(process.env.PORT);
 console.log("App is running  on 3000");
