@@ -65,14 +65,14 @@ export const Dashboard = () => {
             className="mr-5 bg-purple-900 font-bold  text-gray-200 border-purple-900 border-red-900"
             onClick={onClick}
           >
-            Create Document +
+            + Create Document
           </Button>
 
           <Button
             className="mr-5 bg-purple-900 font-bold text-gray-200 border-purple-900 border-red-900"
             onClick={join}
           >
-            Add Project +
+            + Add Document
           </Button>
           <Button
             className="mr-5 bg-purple-900 font-bold text-gray-200 border-purple-900 border-red-800"
