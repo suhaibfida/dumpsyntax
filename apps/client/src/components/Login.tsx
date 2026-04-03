@@ -43,7 +43,7 @@ export const Login = () => {
   };
   return (
     <>
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-black to-purple-900 ">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-black to-sky-900 ">
         <Navbar signUp={signUp} login={onLogin} />
         <div className="fixed top-20 w-screen h-px bg-purple-900" />
         <form
@@ -82,7 +82,9 @@ export const Login = () => {
             </div>
           </div>
           <div className="p-5 mb-5">
-            <Button className="border-purple-700 w-50">Login</Button>
+            <Button className="border-purple-700 text-gray-200 w-50">
+              Login
+            </Button>
           </div>
         </form>
       </div>

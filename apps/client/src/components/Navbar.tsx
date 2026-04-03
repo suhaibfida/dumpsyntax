@@ -17,7 +17,7 @@ export const Navbar = ({ signUp, login }: NavbarType) => {
       <div className="flex fixed bottom-1 pl-3 md:bottom-5 left-5 lg:top-5 lg:right-10 lg:left-auto lg:bottom-auto">
         <div className="pr-5">
           <Button
-            className="w-30 border-purple-800"
+            className="w-30 text-gray-200 border-purple-800"
             type={"submit"}
             onClick={signUp}
           >
@@ -26,7 +26,7 @@ export const Navbar = ({ signUp, login }: NavbarType) => {
         </div>
         <div className="pr-5">
           <Button
-            className="w-30 border-purple-800"
+            className="w-30 text-gray-200 border-purple-800"
             type={"submit"}
             onClick={login}
           >

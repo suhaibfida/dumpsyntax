@@ -59,23 +59,23 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="h-screen bg-gradient-to-b from-black to-purple-900 ">
+      <div className="h-screen bg-gradient-to-b from-black to-sky-900 ">
         <div className="fixed top-5 right-10">
           <Button
-            className="mr-5 bg-purple-900 font-bold  border-purple-900 border-red-300"
+            className="mr-5 bg-purple-900 font-bold  text-gray-200 border-purple-900 border-red-900"
             onClick={onClick}
           >
             Create Document +
           </Button>
 
           <Button
-            className="mr-5 bg-purple-900 font-bold border-purple-900 border-red-300"
+            className="mr-5 bg-purple-900 font-bold text-gray-200 border-purple-900 border-red-900"
             onClick={join}
           >
             Add Project +
           </Button>
           <Button
-            className="mr-5 bg-purple-900 font-bold border-purple-900 border-red-300"
+            className="mr-5 bg-purple-900 font-bold text-gray-200 border-purple-900 border-red-800"
             onClick={logout}
           >
             Logout
@@ -94,8 +94,8 @@ export const Dashboard = () => {
         <div className="fixed top-20 border-1 border-gray-800 w-screen"></div>
         <div className="flex justify-center items-center h-screen">
           <div className="flex flex-wrap h-3/4 w-5/6 mt-20 border bg-gradient-to-b from black to-gray-800 rounded-2xl border-gray-500 border-3 w-4xl overflow-y-auto">
-            <span className="text-3xl font-bold text-gray-300 h-5 absolute top-23 left-165 underline">
-              Live Docs :
+            <span className="text-3xl font-bold text-purple-600 h-5 absolute top-23 left-34 mb-5">
+              Live documents :
             </span>
             {documents.length === 0 ? (
               <p className="text-2xl text-white font-mono p-50 pl-130">

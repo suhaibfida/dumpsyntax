@@ -17,17 +17,17 @@ export const Card = ({ id, title, username }: CardProps) => {
     >
       <div>
         <div className="text-yellow-500 text-sm mb-7">
-          <span className="text-blue-500">Created by </span>: {username}
-          <div className="text-white">Code :</div>
+          <div className="mt-1 pb-3 text-2xl text-gray-200">
+            <span className="pl-3 text-blue-300">Title</span> : {title}
+          </div>
+          <span className="text-blue-300">Created by </span>: {username}
+          <div className="text-white pt-3">Code :</div>
           <div className="text-red-300">{id}</div>
         </div>{" "}
-        <div className="mt-1 text-gray-200">
-          <span className="text-blue-300">Title</span> : {title}
-        </div>
       </div>
       <div>
         <Button
-          className="w-40 h-12 mt-5 bg-purple-900 opacity-0 group-hover:opacity-100 transition"
+          className="w-40 h-10 bg-purple-900 opacity-0 group-hover:opacity-100 transition"
           onClick={onClick}
         >
           Join

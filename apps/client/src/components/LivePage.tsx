@@ -1,9 +1,9 @@
 import io, { Socket } from "socket.io-client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Quill, { Delta } from "quill";
-import { Input } from "@repo/ui/Input";
+// import { Input } from "@repo/ui/Input";
 import { Button } from "@repo/ui/Button";
-import { apiMessage, apiSave } from "./api/api";
+import { apiSave } from "./api/api";
 import "quill/dist/quill.snow.css";
 
 interface Ref {
@@ -13,32 +13,32 @@ export const LivePage = ({ docRef }: Ref) => {
   const socketRef = useRef<Socket | null>(null);
   const quillEdit = useRef<HTMLDivElement>(null);
   const quillRef = useRef<Quill | null>(null);
-  const [message, setMessage] = useState<string | "">("");
+  // const [message, setMessage] = useState<string | "">("");
   const documentRef = useRef<Delta>(null);
-  const [messagev, setMessagev] = useState<string[]>([]);
+  // const [messagev, setMessagev] = useState<string[]>([]);
 
-  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(e.target.value);
-    try {
-      await apiMessage(message);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const onClick = async () => {
-    try {
-      if (!socketRef.current) {
-        return;
-      }
-      await apiMessage(message);
-      socketRef.current.emit("chat", { docRef, message });
-      setMessagev((prev) => [...prev, message]);
+  // const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setMessage(e.target.value);
+  //   try {
+  //     await apiMessage(message);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // const onClick = async () => {
+  //   try {
+  //     if (!socketRef.current) {
+  //       return;
+  //     }
+  //     await apiMessage(message);
+  //     socketRef.current.emit("chat", { docRef, message });
+  //     setMessagev((prev) => [...prev, message]);
 
-      setMessage("");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     setMessage("");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const saveDoc = async () => {
     try {
       await apiSave(documentRef.current);
@@ -127,12 +127,11 @@ export const LivePage = ({ docRef }: Ref) => {
         socketRef.current.disconnect();
       }
     };
-    console.log("hello12");
   }, []);
   return (
     <>
-      <div className="flex h-screen bg-gradient-to-b from-black to-purple-500 p-10">
-        <div className="flex absolute top-0 left-3 w-15 mb-">
+      <div className="flex h-screen bg-gradient-to-b from-black to-sky-800 p-10">
+        <div className="flex absolute top-0 left-3 w-15">
           <img className=" rouned-xl" src="./../../dump.svg" />
           <span className="pt-7 text-gray-300 text-2xl font-bold">
             <span className=" font-bold text-3xl pr-1">
@@ -142,17 +141,17 @@ export const LivePage = ({ docRef }: Ref) => {
             <span className="text-purple-600">{"</>"}</span>
           </span>
         </div>
-        <div className="w-4xl h-9/10 pb-15 rounded-xl bg-gradient-to-b from-purple-400 to-purple-500 ml-10 mt-10 border border-purple-500 border-5">
+        <div className="w-7xl h-9/10 pb-15 ml-20 rounded-xl bg-gradient-to-b from-sky-500 to-purple-700 ml-10 mt-10 border border-purple-900 border-5">
           <div
             className="h-full bg-gray-900 text-white text-xl rounded-3xl ml-2 mr-2 font-mono"
             ref={quillEdit}
           />
         </div>
-        <div className="flex absolute bottom-3 left-191">
+        <div className="flex absolute bottom-3 left-165">
           <div className="pr-5">
             <Button
               type="button"
-              className="bg-black border-purple-300 border-3 pr-1"
+              className="bg-purple-400 border-black font-bold border-3 pr-1"
               onClick={saveDoc}
             >
               Save
@@ -161,14 +160,14 @@ export const LivePage = ({ docRef }: Ref) => {
           <div>
             <Button
               type="button"
-              className="bg-black border-purple-300 border-3"
+              className="bg-purple-400 text-gray-800 font-bold border-black border-3"
               onClick={leaveDoc}
             >
               Leave
             </Button>
           </div>
         </div>
-        <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-purple-500 rounded-xl m-20 flex flex-col">
+        {/* <div className="w-96 h-3/4 bg-zinc-900 border border-3 border-purple-500 rounded-xl m-20 flex flex-col">
           <div className="flex-1">{messagev}</div>
           <div className="flex">
             <Input
@@ -186,7 +185,7 @@ export const LivePage = ({ docRef }: Ref) => {
               ➤
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

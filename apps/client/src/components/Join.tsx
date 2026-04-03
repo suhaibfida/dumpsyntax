@@ -34,7 +34,7 @@ export const Join = ({ inpRef }: Ref) => {
   };
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-gradient-to-b from-black to-purple-500">
+      <div className="flex justify-center items-center h-screen bg-gradient-to-b from-black to-sky-700">
         <div className="flex fixed top-0 left-3 w-15">
           <img className=" rouned-xl" src="./../../dump.svg" />
           <span className="pt-7 text-gray-300 text-2xl font-bold">
