@@ -12,7 +12,7 @@ export const Card = ({ id, title, username }: CardProps) => {
   };
   return (
     <div
-      className="group w-90 font-bold text-2xl h-50 text-center text-white rounded-xl border bg-gray-900 border-purple-950 border-3 ml-10 mt-10"
+      className="group w-90 font-bold text-2xl h-50 text-center text-white rounded-xl border bg-gray-900 border-sky-900 border-3 ml-10 mt-10"
       id={id}
     >
       <div>
@@ -21,7 +21,7 @@ export const Card = ({ id, title, username }: CardProps) => {
             <span className="pl-3 text-blue-300">Title</span> : {title}
           </div>
           <span className="text-blue-300">Created by </span>: {username}
-          <div className="text-white pt-3">Code :</div>
+          <div className="text-blue-3000 pt-3">Joining code :</div>
           <div className="text-red-300">{id}</div>
         </div>{" "}
       </div>
